@@ -3,8 +3,8 @@
     <h1>Список задач</h1>
     <p>Выберите одну для редактирования:</p>
     <div class="tasks">
-      <div class="task" v-for="(task, index) in tasks" :key="index" :class="{ 'red': task.is_high_priority }"> 
-        <router-link tag="div" :to="{ name: 'task.show', params: { taskId: index }}" >
+      <div class="task" v-for="task in tasks" :key="task.id" :class="{ 'red': task.is_high_priority }"> 
+        <router-link tag="div" :to="{ name: 'task.show', params: { taskId: task.id }}" >
           <div class="name"> 
             <h3> {{ task.name }}  </h3>
             
@@ -28,25 +28,16 @@ import axios from 'axios'
 
 export default {
 
-  data(){
-    return {
-      tasks: [],
+  computed: {
+    tasks() {
+      return this.$store.state.tasks;
     }
   },
   created(){
     axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
       .then(res => {
-        const data = res.data;
-        const tasks = [];
-        for (let key in data) {
-          const task = data[key];
-          task.id = key;
-          if(task.obj_status === "active") {
-            tasks.push(task);
-          }
-        }
-        console.log(tasks);
-        this.tasks = tasks;
+        console.log(res.data); // tasks array
+        this.$store.commit('addTasks', res.data);        
       })
       .catch(error => console.log(error))
   }
