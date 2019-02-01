@@ -1,6 +1,7 @@
 <template>
     <app-welcome/>
 </template>
+
 <script>
 import WelcomePage from './welcome/welcome.vue'
 

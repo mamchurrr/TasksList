@@ -6,8 +6,6 @@
             <button @click="saveChanges">Save</button>
         </div> 
         <p> {{ task.description }} </p>
-        
-        
     </div>
 </template>
 
@@ -49,10 +47,8 @@ export default {
         })
         .catch(error => console.log(error))
     }
-
 }
 </script>
-
 
 <style scoped>
     #task {
@@ -60,16 +56,18 @@ export default {
         margin: auto;    
     }
 
-    h1 {
+    h1, p, .changer {
         text-align: center;
     }
 
-    p {
-        text-align: center;
+    h1:hover {
+        border: 1px solid gray;
+        border-radius: 15px;
+        width: 50%;
+        margin: 20px auto;
     }
 
     .changer {
-        text-align: center;
         margin: 20px;
     }
 
@@ -78,7 +76,7 @@ export default {
         font-weight: bold;
         margin-right: 20px;
         padding: 2px 13px;
-        border-radius: 5px;
+        border-radius: 15px;
     }
 
     .changer button {
@@ -88,5 +86,4 @@ export default {
         padding: 2px 13px;
         border-radius: 5px;
     }
-    
 </style>
