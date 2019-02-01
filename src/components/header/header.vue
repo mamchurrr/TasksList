@@ -1,10 +1,24 @@
 <template>
   <header id="header">
     <div class="logo">
-      <router-link to="/">Список задач на Vue</router-link>
+      <router-link to="/">{{ logoText }}</router-link>
     </div>    
   </header>
 </template>
+
+<script>
+import { LOGO_TEXT } from '../../phrases/phrases.js';
+
+export default {
+  data() {
+    return {
+      logoText: LOGO_TEXT
+    }
+  },
+}
+
+</script>
+
 
 <style scoped>
   #header {
@@ -26,6 +40,4 @@
     text-decoration: none;
     color: white;
   }
-
-
 </style>
