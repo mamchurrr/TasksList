@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import WelcomePage from './components/welcome/welcome.vue'
+import Home from './components/home.vue'
 
 Vue.use(Router)
 
@@ -11,12 +11,11 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: WelcomePage
+      component: Home
     },
     {
       path: '/task/:taskId',
       name: 'task.show',
-      props: true,
       component: () => import('./components/tasks/task.vue')
     },
   ]

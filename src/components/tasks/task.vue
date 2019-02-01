@@ -17,10 +17,15 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            task: {},
             changeName: false,
         }
     },
+    computed: {
+        task() {
+            return this.$store.state.task;
+        }
+    },
+    
     methods: {
         saveChanges: function() {
             this.changeName = !this.changeName
@@ -36,20 +41,11 @@ export default {
     created(){
         axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
         .then(res => {
-            const data = res.data;
-            const tasks = [];
-            let link = this.$route.path;
-            for (let key in data) {
-                const task = data[key];
-                task.id = key;
-                if(task.obj_status === "active") {
-                    tasks.push(task);
-                }
-                if(link === '/task/' + task.id ) {
-                    let indexArray = this.$route.params.taskId;
-                    this.task = data[indexArray];
-                }             
-            }
+            console.log(res);
+            this.$store.commit('addTask', {
+                path: this.$route.path,
+                params: this.$route.params.taskId
+                });            
         })
         .catch(error => console.log(error))
     }
