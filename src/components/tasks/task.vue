@@ -41,7 +41,7 @@ export default {
     created(){
         axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
         .then(res => {
-            this.$store.commit('addTasks', res.data);
+            console.log(res);
             this.$store.commit('addTask', {
                 path: this.$route.path,
                 params: this.$route.params.taskId

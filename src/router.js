@@ -16,7 +16,6 @@ export default new Router({
     {
       path: '/task/:taskId',
       name: 'task.show',
-      props: true,
       component: () => import('./components/tasks/task.vue')
     },
   ]

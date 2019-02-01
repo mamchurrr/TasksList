@@ -34,13 +34,15 @@ export default {
     }
   },
   created(){
-    axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
+    if(!this.$store.state.axios) {
+      axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
       .then(res => {
-        console.log(res.data); // tasks array
-        this.$store.commit('addTasks', res.data);        
+        this.$store.commit('addTasks', res.data);               
       })
-      .catch(error => console.log(error))
-  }
+      .catch(error => console.log(error));
+    } 
+    this.$store.commit('changeTasks');   
+  },
 }
 </script>
 

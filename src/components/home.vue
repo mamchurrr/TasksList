@@ -1,16 +1,13 @@
 <template>
-    <keep-alive>
-        <app-welcome></app-welcome>
-    </keep-alive>
+    <app-welcome/>
 </template>
 <script>
 import WelcomePage from './welcome/welcome.vue'
 
 export default {
-    name: 'app',
+    name: 'home',
     components: {
       'app-welcome': WelcomePage
     }
-    
-}
+  }
 </script>

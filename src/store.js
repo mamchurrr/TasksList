@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     tasks: [],
     task: {},
+    axios: false,
   },
   mutations: {
     addTasks: (state, response) => {
@@ -20,8 +21,19 @@ export default new Vuex.Store({
         }
       }      
       state.tasks = tasks;
-      console.log('state updated');
-      console.log(state.tasks);
+      state.axios = true;
+    },
+    changeTasks: (state) => {
+      if(Object.keys(state.task).length) {
+        const data = state.tasks;
+        for (let key in data) {
+          const task = data[key];
+          let storeTaskId = state.task.id;
+          task.id = key;
+          data.splice(storeTaskId, 1, state.task);
+        }
+        state.tasks = data;
+      }
     },
     addTask: (state, payload) => {
       let link = payload.path;
