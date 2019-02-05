@@ -1,7 +1,7 @@
 <template>
   <div id="welcome">
-    <h1> {{ nameList }} </h1>
-    <p> {{ descriptionList }} </p>
+    <h1> {{ NAME_LIST }} </h1>
+    <p> {{ DESCRIPTION_LIST }} </p>
     <div class="tasks">
       <div class="task" v-for="task in tasks" :key="task.id" :class="{ 'red': task.is_high_priority }"> 
         <router-link tag="div" :to="{ name: 'task.show', params: { taskId: task.id }}" >
@@ -14,9 +14,9 @@
               <li v-for="tag in task.tags" :key="tag" class="tag"> {{ tag }} </li>
             </ul>         
           </div>
-          <div> {{ actualEffort }} {{ task.actual_effort }} </div>
-          <div> {{ estimatedEffort }} {{ task.estimated_effort }} </div>
-          <div> {{ dueDate }} {{ task.due_date }}  </div>
+          <div> {{ ACTUAL_EFFORT }} {{ task.actual_effort }} </div>
+          <div> {{ ESTIMATED_EFFORT }} {{ task.estimated_effort }} </div>
+          <div> {{ DUE_DATE }} {{ task.due_date }}  </div>
         </router-link>       
       </div>
     </div>    
@@ -30,11 +30,11 @@ import { NAME_LIST, DESCRIPTION_LIST, ACTUAL_EFFORT, ESTIMATED_EFFORT, DUE_DATE 
 export default {
   data() {
     return {
-      nameList: NAME_LIST,
-      descriptionList: DESCRIPTION_LIST,
-      actualEffort: ACTUAL_EFFORT,
-      estimatedEffort: ESTIMATED_EFFORT,
-      dueDate: DUE_DATE,
+      NAME_LIST,
+      DESCRIPTION_LIST,
+      ACTUAL_EFFORT,
+      ESTIMATED_EFFORT,
+      DUE_DATE,
     }
   },
 

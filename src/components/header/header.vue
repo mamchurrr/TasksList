@@ -1,7 +1,7 @@
 <template>
   <header id="header">
     <div class="logo">
-      <router-link to="/">{{ logoText }}</router-link>
+      <router-link to="/">{{ LOGO_TEXT }}</router-link>
     </div>    
   </header>
 </template>
@@ -12,7 +12,7 @@ import { LOGO_TEXT } from '../../phrases/phrases.js';
 export default {
   data() {
     return {
-      logoText: LOGO_TEXT
+      LOGO_TEXT
     }
   },
 }
