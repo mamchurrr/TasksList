@@ -5,6 +5,8 @@ const DESCRIPTION_LIST = "Выберите одну для редактиров�
 const ACTUAL_EFFORT = "Время потраченное на задачу: ";
 const ESTIMATED_EFFORT = "Общая оценка задачи: ";
 const DUE_DATE = "Дата окончания задачи: ";
+const NAME_TASK = "Название задачи: ";
+
 
 export { 
     LOGO_TEXT,
@@ -13,4 +15,5 @@ export {
     ACTUAL_EFFORT,
     ESTIMATED_EFFORT,
     DUE_DATE,
+    NAME_TASK,
  };
