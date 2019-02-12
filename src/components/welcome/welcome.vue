@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     taskDate(task) {
-      let date
+      let date;
       let due = task.due_date;
       if(due!==undefined){
         let dateArray = due.split('T');
