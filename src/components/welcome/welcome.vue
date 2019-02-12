@@ -6,7 +6,7 @@
       <div class="task" v-for="task in tasks" :key="task.id" :class="{ 'red': task.is_high_priority }"> 
         <router-link tag="div" :to="{ name: 'task.show', params: { taskId: task.id }}" >
           <div class="name"> 
-            <h3> {{ task.name }}  </h3>
+            <h3> {{ NAME_TASK }} {{ task.name }}  </h3>
             
           </div>
           <div>
@@ -14,9 +14,9 @@
               <li v-for="tag in task.tags" :key="tag" class="tag"> {{ tag }} </li>
             </ul>         
           </div>
-          <div> {{ ACTUAL_EFFORT }} {{ task.actual_effort }} </div>
-          <div> {{ ESTIMATED_EFFORT }} {{ task.estimated_effort }} </div>
-          <div> {{ DUE_DATE }} {{ task.due_date }}  </div>
+          <div> {{ ACTUAL_EFFORT }} {{ task.actual_effort + " часа"}} </div>
+          <div> {{ ESTIMATED_EFFORT }} {{ task.estimated_effort + " часа"}} </div>
+          <div> {{ DUE_DATE }} {{ taskDate(task) }}  </div>
         </router-link>       
       </div>
     </div>    
@@ -25,7 +25,7 @@
 
 <script>
 import axios from 'axios'
-import { NAME_LIST, DESCRIPTION_LIST, ACTUAL_EFFORT, ESTIMATED_EFFORT, DUE_DATE } from '../../phrases/phrases.js';
+import { NAME_LIST, DESCRIPTION_LIST, ACTUAL_EFFORT, ESTIMATED_EFFORT, DUE_DATE, NAME_TASK } from '../../phrases/phrases.js';
 
 export default {
   data() {
@@ -35,12 +35,24 @@ export default {
       ACTUAL_EFFORT,
       ESTIMATED_EFFORT,
       DUE_DATE,
+      NAME_TASK,
     }
   },
 
   computed: {
     tasks() {
       return this.$store.state.tasks;
+    },
+  },
+  methods: {
+    taskDate(task) {
+      let date
+      let due = task.due_date;
+      if(due!==undefined){
+        let dateArray = due.split('T');
+        date = dateArray[0].split("-").reverse().join(".") + " в " + dateArray[1];
+      }
+      return date;
     }
   },
   created(){

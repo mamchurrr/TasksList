@@ -2,8 +2,7 @@
     <div id="task">
         <h1 @click="changeName=!changeName" v-if="!changeName"> {{ task.name }} </h1>
         <div class="changer" v-else >
-            <input  type="text" v-model="task.name">
-            <button @click="saveChanges">Save</button>
+            <input  type="text" v-model="task.name" @blur="saveChanges" @keyup.enter="saveChanges">
         </div> 
         <p> {{ task.description }} </p>
     </div>
@@ -16,6 +15,7 @@ export default {
     data() {
         return {
             changeName: false,
+            taskName: this.$store.state.task,
         }
     },
     computed: {
@@ -26,7 +26,7 @@ export default {
     
     methods: {
         saveChanges: function() {
-            this.changeName = !this.changeName
+            this.changeName = !this.changeName;
             axios.put('https://axios-9d3d5.firebaseio.com/tasks/' + this.$route.params.taskId, {
                 name: this.task.name
             })
@@ -79,6 +79,8 @@ export default {
         margin-right: 20px;
         padding: 2px 13px;
         border-radius: 15px;
+        border: none;
+        text-align:  center;
     }
 
     .changer button {
