@@ -52,9 +52,9 @@ describe('Вид компонента Task', () => {
     expect(actions.updateTask).toHaveBeenCalled()
   })
 
-  it("renders a username using a real Vuex getter", () => {
-    const wrapper = shallowMount(Task, { store, localVue })
+  // it("проверка геттера", () => {
+  //   const wrapper = shallowMount(Task, { store, localVue })
   
-    expect(wrapper.find("h1").text()).toBe("Task Test")
-  })
+  //   expect(wrapper.find("h1").text()).toBe("Task Test")
+  // })
 })

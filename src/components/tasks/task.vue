@@ -28,8 +28,8 @@ export default {
     },
     created(){
         this.$store.dispatch('setTask', {
-                // path: this.$route.path,
-                // params: this.$route.params.taskId
+                path: this.$route.path,
+                params: this.$route.params.taskId
                 });
     }
 }
