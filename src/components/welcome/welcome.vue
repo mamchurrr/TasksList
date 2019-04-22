@@ -7,7 +7,6 @@
         <router-link tag="div" :to="{ name: 'task.show', params: { taskId: task.id }}" >
           <div class="name"> 
             <h3> {{ NAME_TASK }} {{ task.name }}  </h3>
-            
           </div>
           <div>
             <ul class="tags" >
@@ -24,8 +23,14 @@
 </template>
 
 <script>
-import axios from 'axios'
-import { NAME_LIST, DESCRIPTION_LIST, ACTUAL_EFFORT, ESTIMATED_EFFORT, DUE_DATE, NAME_TASK } from '../../phrases/phrases.js';
+import { mapGetters } from 'vuex';
+import { NAME_LIST, 
+        DESCRIPTION_LIST, 
+        ACTUAL_EFFORT, 
+        ESTIMATED_EFFORT, 
+        DUE_DATE, 
+        NAME_TASK 
+        } from '@/phrases/phrases.js';
 
 export default {
   data() {
@@ -38,36 +43,25 @@ export default {
       NAME_TASK,
     }
   },
-
   computed: {
-    tasks() {
-      return this.$store.state.tasks;
-    },
+    ...mapGetters(['tasks'])
   },
   methods: {
     taskDate(task) {
       let date;
-      let due = task.due_date;
-      if(due!==undefined){
-        let dateArray = due.split('T');
+      const { due_date } = task;
+      if(due_date !== undefined){
+        let dateArray = due_date.split('T');
         date = dateArray[0].split("-").reverse().join(".") + " в " + dateArray[1];
       }
       return date;
     }
   },
   created(){
-    if(!this.$store.state.axios) {
-      axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
-      .then(res => {
-        this.$store.commit('addTasks', res.data);               
-      })
-      .catch(error => console.log(error));
-    } 
-    this.$store.commit('changeTasks');   
+    this.$store.dispatch('setTasks');
   },
 }
 </script>
 
-<style scoped>
-  @import url('../../styles/welcome.css'); 
+<style scoped src="@/styles/welcome.css">
 </style>

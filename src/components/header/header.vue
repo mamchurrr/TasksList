@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { LOGO_TEXT } from '../../phrases/phrases.js';
+import { LOGO_TEXT } from '@/phrases/phrases.js';
 
 export default {
   data() {

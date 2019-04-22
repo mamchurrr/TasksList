@@ -1,42 +1,60 @@
 import { shallowMount, createLocalVue  } from '@vue/test-utils'
 import Task from '@/components/tasks/task.vue'
-
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue()
 
 localVue.use(Vuex)
+localVue.use(VueRouter)
+
+const routes = [{
+  path: "/task/1",
+  params: { taskId: "1" }
+}]
+
+const router = new VueRouter({
+  routes
+})
 
 
 describe('Вид компонента Task', () => {
-  let state
-  let store
+  let actions;
+  let store;  
 
   beforeEach(() => {
-    state = {
-      task: {
-        name: "Task Test",
-        description: "Text Task Test",
-      },
+    actions = {
+      updateTask: jest.fn(),
     }
-
     store = new Vuex.Store({
-      state
+      state: {
+        task: {
+          name: "Task Test",
+          description: "Text Task Test",
+        },
+      },
+      getters: {
+        task: state => {
+          return state.task;
+        }
+      },
+      actions
     })
   })
 
-  it('Не рендерит input для изменения имени таски - без нажатия на Н1', () => {
-    const TaskWrapper = shallowMount(Task, { store, localVue })
-    expect(TaskWrapper.html()).not.toContain('<input>')
+  it('вызывает "updateTask", при блюре названия', () => {
+    const wrapper = shallowMount(Task, { store, localVue, router })
+    const h1 = wrapper.find('h1')
+    h1.trigger('click')
+    const input = wrapper.find('input')
+    input.element.value = "bla-bla"
+    input.trigger('blur')
+    expect(actions.updateTask).toHaveBeenCalled()
   })
 
-  it('Рендерит input для изменения имени таски после нажатия', () => {
-    const TaskWrapper = shallowMount(Task, { store, localVue })
-    TaskWrapper.setData({
-      changeName: true
-    })
-    expect(TaskWrapper.find('.changer').isVisible()).toBe(
-      true
-    )
+  it("renders a username using a real Vuex getter", () => {
+    const wrapper = shallowMount(Task, { store, localVue })
+  
+    expect(wrapper.find("h1").text()).toBe("Task Test")
   })
 })

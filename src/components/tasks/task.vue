@@ -9,45 +9,28 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters } from 'vuex';
 
 export default {
     data() {
         return {
             changeName: false,
-            taskName: this.$store.state.task,
         }
     },
     computed: {
-        task() {
-            return this.$store.state.task;
-        }
-    },
-    
+        ...mapGetters(['task'])
+    },    
     methods: {
         saveChanges: function() {
             this.changeName = !this.changeName;
-            axios.put('https://axios-9d3d5.firebaseio.com/tasks/' + this.$route.params.taskId, {
-                name: this.task.name
-            })
-            .then(res => {
-                console.log(res);
-            })
-            .catch(error => console.log(error))
+            this.$store.dispatch('updateTask', this.$route.params.taskId);            
         }
     },
     created(){
-        axios.get('https://axios-9d3d5.firebaseio.com/tasks.json')
-        .then(res => {
-            if(!this.$store.state.axios) {
-                this.$store.commit('addTasks', res.data);               
-            } 
-            this.$store.commit('addTask', {
-                path: this.$route.path,
-                params: this.$route.params.taskId
-                });            
-        })
-        .catch(error => console.log(error))
+        this.$store.dispatch('setTask', {
+                // path: this.$route.path,
+                // params: this.$route.params.taskId
+                });
     }
 }
 </script>
